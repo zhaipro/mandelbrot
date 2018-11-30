@@ -8,7 +8,6 @@ def count_iterations_until_divergent(c, threshold):
     z = complex(0, 0)
     for iteration in range(threshold):
         z = (z * z) + c
-
         if abs(z) > 4:
             break
     return iteration
@@ -21,25 +20,19 @@ def mandelbrot(threshold, density):
     # location and size of the atlas rectangle
     # real_axis = np.linspace(-2.25, 0.75, density)
     # imaginary_axis = np.linspace(-1.5, 1.5, density)
-    real_axis = np.linspace(-0.22, -0.219, 1000)
-    imaginary_axis = np.linspace(-0.70, -0.699, 1000)
-    real_axis_len = len(real_axis)
-    imaginary_axis_len = len(imaginary_axis)
-
+    real_axis = np.linspace(-0.22, -0.219, density)
+    imaginary_axis = np.linspace(-0.70, -0.699, density)
     # 2-D array to represent mandelbrot atlas
-    atlas = np.empty((real_axis_len, imaginary_axis_len))
+    atlas = np.empty((density, density))
 
     # color each point in the atlas depending on the iteration count
-    for ix in range(real_axis_len):
-        for iy in range(imaginary_axis_len):
-            cx = real_axis[ix]
-            cy = imaginary_axis[iy]
+    for ix, cx in enumerate(real_axis):
+        for iy, cy in enumerate(imaginary_axis):
             c = complex(cx, cy)
-
-            atlas[ix, iy] = count_iterations_until_divergent(c, threshold)
+            atlas[iy, ix] = count_iterations_until_divergent(c, threshold)
 
     # plot and display mandelbrot set
-    plt.imshow(atlas.T, interpolation="nearest")
+    plt.imshow(atlas, interpolation="nearest")
     plt.show()
 
 
