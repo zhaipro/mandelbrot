@@ -32,9 +32,9 @@ def mandelbrot_set(xmin=-2.25, xmax=0.75, ymin=-1.5, ymax=1.5,
 
 
 if __name__ == '__main__':
+    import time
     import matplotlib.pyplot as plt
     # time to party!!
     atlas = mandelbrot_set(-0.22, -0.219, -0.70, -0.699)
-    # plot and display mandelbrot set
-    plt.imshow(atlas, interpolation="nearest")
-    plt.show()
+    # save mandelbrot set
+    plt.imsave(f'{time.time():.0f}.jpg', atlas)
