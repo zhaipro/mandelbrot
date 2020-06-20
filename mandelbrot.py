@@ -33,10 +33,16 @@ def mandelbrot_set(xmin=-2.25, xmax=0.75, ymin=-1.5, ymax=1.5,
 
 
 if __name__ == '__main__':
-    import time
+    import sys
     import matplotlib.pyplot as plt
     # time to party!!
-    atlas = mandelbrot_set(-0.748768, -0.748718, 0.0650619375, 0.0650900625,
-                           threshold=2048, xn=1920)
-    # save mandelbrot set
-    plt.imsave(f'{time.time():.0f}.jpg', atlas, cmap='gnuplot2')
+    # -0.748768, -0.748718, 0.0650619375, 0.0650900625, threshold=2048, xn=1920
+    atlas = mandelbrot_set(threshold=255, xn=1024)
+    if len(sys.argv) > 1:
+        # save mandelbrot set
+        fn = sys.argv[1]
+        plt.imsave(f'{fn}.jpg', atlas, cmap='gnuplot2')
+    else:
+        # plot and display mandelbrot set
+        plt.imshow(atlas, cmap='gnuplot2')
+        plt.show()
